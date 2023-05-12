@@ -1,0 +1,55 @@
+﻿@{
+    var sneakers = ViewData["Sneakers"] as List<Sneaker>;
+
+
+
+}
+
+@*
+ *@
+    @if(sneakers != null)
+    {
+        <div class="row">
+            <div class="col">
+                <div class="table-responsive">
+                    <table class="table table-bordered table-hover">
+                        <thead class="table-dark">
+                            <tr>
+                                <th class="text-center text-success">ID</th>
+                                <th class="text-center text-success">Fotka</th>
+                                <th class="text-center text-success">Název</th>
+                                <th class="text-center text-success">Model</th>
+                                <th class="text-center text-success">Velikost</th>
+                                <th class="text-center text-success">Akce</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (Sneaker sneaker in sneakers)
+                            {
+                                <tr>
+                                    <td class="align-middle text-center text-success">@sneaker.Id</td>
+                                    <td class="align-middle text-center">
+                                        <img src="/upload/@sneaker.Photo" style="max-width: 100px; height: auto;">
+                                    </td>
+                                    <td class="align-middle text-center text-success">@sneaker.Brand</td>
+                                    <td class="align-middle text-center text-success">@sneaker.Model.Name</td>
+                                    <td class="align-middle text-center text-success">@sneaker.Size</td>
+                                    <td class="align-middle text-center text-success">
+                                        <div class="d-flex justify-content-center">
+                                            <a asp-controller="Sneaker" asp-action="Edit" asp-route-id="@sneaker.Id">
+                                                <button class="btn btn-sm btn-warning me-2">Editovat botu</button>
+                                            </a>
+                                            <a asp-controller="Sneaker" asp-action="Delete" asp-route-id="@sneaker.Id">
+                                                <button class="btn btn-sm btn-danger">Smazat botu</button>
+                                            </a>
+                                        </div>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+    }

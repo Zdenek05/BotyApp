@@ -1,0 +1,56 @@
+﻿@{
+    var sneaker = ViewData.ContainsKey("Sneaker") ? ViewData["Sneaker"] as Sneaker : null;
+    var models = ViewData["Models"] as List<Model>;
+}
+
+
+<div class="d-flex justify-content-center">
+    <div class="box">
+        <div class="row">
+            <div class="col-md-6">
+                <form asp-controller="Sneaker" asp-action="EditSneaker" method="post" enctype="multipart/form-data" asp-route-id="@sneaker.Id">
+                    <div class="mb-3 mt-3">
+                        <label for="brand" class="form-label" style="color: green; font-weight: bold;">Název značky boty</label>
+                        <input type="text" class="form-control" id="brand" placeholder="Vložte název" name="brand" style="background-color: #f8f9fa; color: green; border-color: #28a745;" required
+                        @if (sneaker != null)
+                        {
+                            <text> value="@sneaker.Brand" </text>
+                        }/>
+                    </div>
+                    <div class="mb-3">
+                        <label for="category" class="form-label" style="color: green; font-weight: bold;">Model boty</label>
+                        <select required name="category" id="category" class="form-select" asp-for="@sneaker.Model.Id" style="background-color: #f8f9fa; color: green; border-color: #28a745;">
+                            <option>-</option>
+                            @foreach (var mod in models)
+                            {
+                                if (sneaker != null && mod.Id == sneaker.Model.Id)
+                                {
+                                    <option selected value="@mod.Id">@mod.Name</option>
+                                }
+                                else
+                                {
+                                    <option value="@mod.Id">@mod.Name</option>
+                                }
+                            }
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <label for="image" class="form-label" style="color: green; font-weight: bold;">Obrázek boty</label>
+                        <input type="file" class="form-control" name="image" style="background-color: #f8f9fa; color: green; border-color: #28a745;" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="size" class="form-label" style="color: green; font-weight: bold;">Velikost boty</label>
+                        <input name="size" id="size" class="form-control" style="background-color: #f8f9fa; color: green; border-color: #28a745;" required
+                        @if (sneaker != null)
+                        {
+                            <text> value="@sneaker.Size"</text>
+                        }>
+                    </div>
+                    <div class="mb-3">
+                        <input type="submit" class="btn btn-primary btn-lg btn-block" value="Upravit botu" style="background-color: #28a745; color: white; font-weight: bold;">
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
